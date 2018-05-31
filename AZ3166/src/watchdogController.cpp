@@ -7,11 +7,7 @@
 Watchdog WatchdogController::watchdog;
 
 void WatchdogController::initialize() {
-<<<<<<< HEAD
     if (!watchdog.configure(32767))
-=======
-    if (!watchdog.configure(25000))
->>>>>>> Add USB flashing support
     {
         // unlikely. returns false only when the timeout is beyond the supported range
         // Min timeout period at 32kHz LSI: 0.125ms, with 4 prescaler divider
