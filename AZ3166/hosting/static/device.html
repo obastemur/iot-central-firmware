@@ -1,0 +1,83 @@
+<html lang="en"><head>
+  <title>AIOT - Cloud IDE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
+  <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="all">
+  <link rel="stylesheet" href="css/font-awesome.css">
+  </head>
+  <body>
+
+  <section class="register">
+    <div class="header">
+      <div class="logo">
+        <a href="/">AIoT - Cloud IDE</a>
+      </div>
+    <div class="social">
+        <img src="logo.png" style="max-width:40%;max-height:40%;float:right;margin-top:-25px;padding-top:0px"/>
+    </div>
+      <div class="clear"></div>
+    </div>
+
+    <div class="register-full">
+      <div class="register-left">
+        <div class="register">
+    <p>MXCHIP AZ3166 Configuration</p>
+
+    $OUTPUT
+
+    <form action="/download" method="post" id='frm1'>
+    <div id='t1' class="input-group fluid">
+      <input value="" name="SSID" required="" id="SSID" placeholder="WiFi SSID" style="width: 100%; background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" type="text">
+    </div>
+    <div id='t2' class="input-group fluid">
+      <input value="" name="PASS" id="password" placeholder="WiFi Password" style="width: 100%; background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" type="password">
+    </div>
+    <div id='t3' class="input-group fluid">
+      <input name="CONN" id="connstr" placeholder="Device connection string" style="width:100%;" title="Copy in the device connection string from Azure IoT Central application" required="" pattern="(hostname=|HostName=|HOSTNAME=|DeviceId=|deviceid=|DEVICEID=|SharedAccessKey=|sharedaccesskey=|SHAREDACCESSKEY=).*" type="text">
+    </div>
+    <input name="SSSID" type="hidden" value="$SSSID" />
+    <div class="input-group fluid" style="text-align:left">
+      <fieldset id='things' class="group" style='margin-top:1em'> <legend>Select telemetry data to send</legend>
+      <ul class="checkbox"><li>
+<input name="TEMP" id="temp" checked="checked" type="checkbox"><label for="temp">Temperature</label></li><li><input name="ACCEL" id="accel" checked="checked" type="checkbox"><label for="accel">Accelerometer</label></li><li><input name="HUM" id="hum" checked="checked" type="checkbox"><label for="hum">Humidity</label></li><li><input name="GYRO" id="gyro" checked="checked" type="checkbox"><label for="gyro">Gyroscope</label></li><li><input name="PRES" id="pres" checked="checked" type="checkbox"><label for="pres">Pressure</label></li><li><input name="MAG" id="mag" checked="checked" type="checkbox"><label for="mag">Magnetometer</label></li></ul> </fieldset> </div><div class="input-group fluid" style="padding-top: 20px;">
+        <button type="submit" class="primary" id='btn'>Build Bootloader</button>
+        <button class="primary" id='btnBack'>Go Back</button>
+      </div></form>
+
+      <script>
+        var btn = document.getElementById('btn');
+        var frm1 = document.getElementById('frm1');
+        var btnBack = document.getElementById('btnBack');
+        btnBack.addEventListener('click', function() {
+          window.history.back();
+        });
+        frm1.addEventListener('submit', function() {
+          btn.disabled = true;
+          btnBack.style = "display:none";
+
+          var i = 0;
+          var loaderInterval = setInterval(function() {
+            i = ++i % 7;
+            var dots = Array(i + 1).join(".");
+            btn.innerText = "Preparing.." + dots;
+            btn.innerValue = btn.innerText;
+          }, 500);
+
+          document.getElementById('t1').style = 'display:none;visibility:hidden';
+          document.getElementById('t2').style = 'display:none;visibility:hidden';
+          document.getElementById('t3').style = 'display:none;visibility:hidden';
+          document.getElementById('things').style = 'display:none;visibility:hidden';
+        })
+      </script>
+
+</div>
+</div>
+</div>
+<div class="clear"> </div>
+</div>
+<p class="agile-copyright">Azure IOT</p>
+</section>
+
+</body></html>

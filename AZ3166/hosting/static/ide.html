@@ -1,0 +1,127 @@
+<html lang="en"><head>
+  <title>AIOT - Cloud IDE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
+  <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="all">
+  <script>var require = { paths: { 'vs': 'vs' } };</script>
+	<script src="vs/loader.js"></script>
+	<script src="vs/editor/editor.main.nls.js"></script>
+  <script src="vs/editor/editor.main.js"></script>
+  <link rel="stylesheet" href="vs/editor/editor.main.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+  </head>
+  <body>
+
+  <section class="register" style='max-height: 80%;height:80%'>
+    <div class="header">
+      <div class="logo">
+        <a href="/">AIOT - Cloud IDE</a>
+      </div>
+    <div class="social">
+        <img src="logo.png" style="max-width:40%;max-height:40%;float:right;margin-top:-25px;padding-top:0px"/>
+    </div>
+      <div class="clear"></div>
+    </div>
+
+    <div class="register-full" style='background-color:#222;width:90%;height:90%'>
+      <div style="width:100%; padding:0; height:3em;background-color:#222" >
+        <button class="btnSmall" id='compiler'>compile</button>
+        <div id='fileNameDiv' style="float:right;padding: 5px;color: greenyellow;padding-right: 2em;padding-top: 1em;"></div>
+      </div>
+      <div style="display:none" id="buildDiv">
+
+      </div>
+      <div id="filez" class="file_browser">
+        $OUTPUT
+      </div>
+      <div id="container" class="container_browser"></div>
+    </div>
+    <div class="clear"> </div>
+    <p class="agile-copyright">Azure IOT</p>
+  </section>
+<script>
+  function renderIDE() {
+    window.sssId = "$SSSID";
+    var editor = monaco.editor.create(document.getElementById("container"), {
+      value: "// Select a file from the browser on the left",
+      language: "cpp",
+
+      lineNumbers: "on",
+      roundedSelection: false,
+      scrollBeyondLastLine: false,
+      readOnly: false,
+      theme: "vs-dark",
+    });
+    // setTimeout(function() {
+    //   editor.updateOptions({
+    //     lineNumbers: "on"
+    //   });
+    // }, 2000);
+    editor.focus();
+    window.editor = editor;
+    window.addEventListener('resize', function() {
+      setTimeout(function() { editor.layout(); }, 1);
+    })
+  }
+
+  var compiler = document.getElementById('compiler');
+  compiler.addEventListener('click', function() {
+    if (compiler.disabled) {
+      return;
+    }
+    if (compiler.innerText == 'Go back') {
+      document.getElementById("container").style.display = 'block';
+      document.getElementById("filez").style.display = 'block';
+      document.getElementById("fileNameDiv").style.display = 'block';
+      window.frame.parentNode.removeChild(window.frame);
+      compiler.innerText = 'compile';
+      setTimeout(function() { window.editor.layout(); }, 1);
+      return;
+    }
+
+    window.saveContent();
+    var buildDiv = document.getElementById('buildDiv');
+    buildDiv.style.display = 'block';
+    window.frame = document.createElement('iframe');
+    window.frame.src = "/build?sssid=" + window.sssId
+    window.frame.style = 'width:90%;height:80%;overflow:scroll';
+    compiler.disabled = true;
+    compiler.style = "width:250px";
+
+    var i = 0;
+    var loaderInterval = setInterval(function() {
+      i = ++i % 7;
+      var dots = Array(i + 1).join(".");
+      compiler.innerText = "Preparing.." + dots;
+    }, 500);
+
+    window.frame.addEventListener('load', function(e) {
+      compiler.disabled = false;
+      compiler.innerText = 'Go back';
+      compiler.style = "";
+      clearInterval(loaderInterval);
+    });
+
+    document.getElementById("container").style.display = 'none';
+    document.getElementById("filez").style.display = 'none';
+    document.getElementById("fileNameDiv").style.display = 'none';
+    buildDiv.appendChild(window.frame)
+  })
+
+  function wait() {
+    if (typeof monaco === 'undefined') {
+      setTimeout(function() {
+        wait();
+      }, 100);
+    } else {
+      renderIDE();
+    }
+  }
+
+  wait();
+</script>
+
+  </body></html>
