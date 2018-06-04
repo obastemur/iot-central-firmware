@@ -142,14 +142,14 @@ p{
 .explorer_true {
 	color:darkorange;
 	font-weight: 500;
-	font-size:0.8em;
+	font-size:0.9em;
 	float:clear;
 	cursor:pointer;
 }
 
 .explorer_false {
 	color:#fff;
-	font-size:0.8em;
+	font-size:0.9em;
 	font-weight: 400;
 	float:clear;
 	cursor:pointer;
@@ -189,7 +189,7 @@ p{
 .btnSmall {
 	background:#368e14;
 	border: 1px solid #368e14;
-    font-size: small;
+    font-size: 0.9em;
 	color: #ffffff;
 	padding: 4px 15px;
 	margin-top:0.5em;
