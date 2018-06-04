@@ -183,7 +183,7 @@ function createBinary(req, res, body, args) {
   }
 
   if (!failed) {
-    var defs = [];
+    var defs = [], definition_stuff = '';
     var NAME;
     if (body) {
       for(var o in configs) {
@@ -200,13 +200,13 @@ function createBinary(req, res, body, args) {
       defs.push('#define COMPILE_TIME_DEFINITIONS_SET');
       defs = defs.join('\n').replace(/\"/g, "\\\"");
       NAME = configs.SSSID.value;
+      definition_stuff = `echo "${defs}" > inc/definitions.h`;
     } else {
       NAME = args.sssid;
-      defs = '';
     }
     cmd.get(`
     cd ../../${NAME}
-    echo "${defs}" > inc/definitions.h
+    ${definition_stuff}
     docker image prune -f
     iotc iotCentral.ino -c=a -t=AZ3166:stm32f4:MXCHIP_AZ3166
     `, function(errorCode, stdout, stderr) {
