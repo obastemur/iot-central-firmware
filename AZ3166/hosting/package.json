@@ -1,0 +1,9 @@
+{
+  "name": "AZ3166_hosting",
+  "dependencies": {
+    "connect": "^3.6.6",
+    "monaco-editor": "^0.13.1",
+    "node-cmd": "^3.0.0",
+    "serve-static": "^1.13.2"
+  }
+}
