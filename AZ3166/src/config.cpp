@@ -73,7 +73,7 @@ void ConfigController::storeKey(AutoString &auth, AutoString &scopeId, AutoStrin
         // 0 length for x509 sample cert
         memcpy(buffer + SAS_REG_ID_ENDS, *key, key.getLength());
     }
-    LOG_VERBOSE("STORE scope:%s regId:%s key:%s", *scopeId, *regId, *key);
+    LOG_VERBOSE("STORE scope:%s regId:%s key:%s", scopeId.getLength() > 0 ? *scopeId : "", *regId, *key);
     if ((*auth)[0] == 'S') {
         LOG_VERBOSE("\tKEY SSYM");
         memcpy(buffer + (AZ_IOT_HUB_MAX_LEN - 4), "SSYM", 4);
