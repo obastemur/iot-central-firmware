@@ -15,10 +15,6 @@
 #include "azure_prov_client/prov_transport_mqtt_client.h"
 #include <AzureIotHub.h>
 #include "provisioning_client/adapters/hsm_client_key.h"
-int prov_dev_set_symmetric_key_info(const char* registration_name, const char* symmetric_key) {
-    hsm_client_set_registration_name_and_key(registration_name, symmetric_key);
-    return 0;
-}
 #endif // TARGET_MXCHIP_AZ3166
 
 #ifdef ESP_PLATFORM

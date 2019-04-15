@@ -24,8 +24,6 @@
 #ifndef parson_parson_h
 #define parson_parson_h
 
-#ifdef ESP_PLATFORM
-
 #ifdef __cplusplus
 extern "C"
 {
@@ -234,4 +232,3 @@ int             json_boolean(const JSON_Value *value);
 #endif
 
 #endif
-#endif // ESP_PLATFORM
